@@ -24,7 +24,7 @@ def getRandomImg():
     postURL = random.choice(links)
     r = requests.get(postURL)
     postHTML = BeautifulSoup(r.text, 'html.parser')
-    img = postHTML.find(id='homePage').find_all('div', {'class':'gridItem'})[0].get("data-photo-high")
+    img = postHTML.find(id='homePage').find('div', {'class':'gridItem'}).get("data-photo-high")
     print img
 
 getRandomImg()
