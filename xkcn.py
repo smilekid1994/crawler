@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import requests
 from bs4 import BeautifulSoup
 import time
@@ -25,6 +23,4 @@ def getRandomImg():
     r = requests.get(postURL)
     postHTML = BeautifulSoup(r.text, 'html.parser')
     img = postHTML.find(id='homePage').find('div', {'class':'gridItem'}).get("data-photo-high")
-    print img
-
-getRandomImg()
+    return img
