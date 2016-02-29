@@ -1,7 +1,8 @@
 import requests
-from bs4 import BeautifulSoup
-import time
-import random
+#from bs4 import BeautifulSoup
+#import time
+#import random
+import re
 
 ''' Get random image from xkcn.info
     - get random page at http://xkcn.info/page/{ramdom}
@@ -10,10 +11,10 @@ import random
 '''
 
 def getRandomImg():
-    page = int(time.time()) % 20
-    pageURL = "http://xkcn.info/page/%s" % page
+    pageURL = "http://xkcn.info/random"
     r = requests.get(pageURL)
-    pageHTML = BeautifulSoup(r.text, 'html.parser')
+    #pageHTML = BeautifulSoup(r.text, 'html.parser')
+    '''
     homePageHTML = pageHTML.find(id='homePage')
     allAnchor = homePageHTML.find_all('a', {'class': ''})
     links = []
@@ -22,5 +23,8 @@ def getRandomImg():
     postURL = random.choice(links)
     r = requests.get(postURL)
     postHTML = BeautifulSoup(r.text, 'html.parser')
-    img = postHTML.find(id='homePage').find('div', {'class':'gridItem'}).get("data-photo-high")
-    return img
+    '''
+    #imgTag = pageHTML.find_all('img', {'class': 'permalinkPrimaryPhoto'})
+    imgTag = re.search(r'<img(.*?)class="permalinkPrimaryPhoto"(.*?)', r.text).group(0)
+    imgUrl = re.search(r'src="(.*?)"', imgTag).group(1)
+    return imgUrl

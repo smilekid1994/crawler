@@ -5,4 +5,6 @@ def calc(expr):
     r = requests.get(url)
     if r.text != "":
         return r.text
-    return "Méo biết!"
+    if r.text == "undefined":
+        return "Méo biết!"
+    return "Méo hiểu!"
